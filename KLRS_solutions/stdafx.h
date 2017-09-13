@@ -10,6 +10,10 @@
 #include <stdio.h>
 #include <tchar.h>
 
+#include <cstdint>
+#include <limits>
 
+const auto ERR = std::numeric_limits<int64_t>::lowest();
+using LONG = int64_t;
 
 // TODO: Установите здесь ссылки на дополнительные заголовки, требующиеся для программы
