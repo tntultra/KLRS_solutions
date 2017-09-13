@@ -17,33 +17,28 @@ RET_TYPE find_max_subarray_linear(std::vector<LONG>* v, size_t start, size_t end
 	
 	for (size_t pos = start + 1; pos <= end; ++pos) {
 		auto val = v->at(pos);
-		auto newSum = trailingSum + val;
-			if (val > 0) {
-				trailingSum = newSum;
-			}
-			else {
-				if (trailingSum > 0) {//still greatest sum
-					trailingSum = newSum;
-				}
-				else {
-					trailingSum = val;
-					trailingSumStart = pos;
-				}
-			}
-			if (trailingSum > resultingSum) {
-				res = { trailingSumStart, pos, trailingSum };
-			}
+		if (trailingSum > 0) {
+			trailingSum += val;
+		}
+		else {
+			trailingSum = val;
+			trailingSumStart = pos;
+		}
+		if (trailingSum > resultingSum) {
+			res = { trailingSumStart, pos, trailingSum };
 		}
 	}
 	return res;
 }
 
 int main() {
-	//std::vector<LONG> values{ 1, 3, 5, -4, 10, 12, -14, 6, 17, -1 };
-	std::vector<LONG> values{ -5, 3, -1, -7, -8 };
+	std::vector<LONG> values{ 1, 3, 5, -4, 10, 12, -14, 6, 17, -1 };
+	//std::vector<LONG> values{ -5, -8, -1, -7, 0 };
 	auto result = find_max_subarray_linear(&values, 0, values.size() - 1);
-	std::cout << "start = " << std::get<0>(*result) <<
-		"\nend = " << std::get<1>(*result) <<
-		"\nsum = " << std::get<2>(*result) << std::endl;
+	if (result) {
+		std::cout << "start = " << std::get<0>(*result) <<
+			"\nend = " << std::get<1>(*result) <<
+			"\nsum = " << std::get<2>(*result) << std::endl;
+	}
 	return 0;
 }
